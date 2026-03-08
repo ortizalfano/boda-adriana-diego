@@ -40,8 +40,7 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
-  width: 100%;
+  /* Removed overflow-x: hidden to prevent scroll conflicts on mobile */
 }
 
 body {
@@ -50,8 +49,11 @@ body {
   color: var(--color-text-dark);
   line-height: 1.6;
   overflow-x: hidden;
+  /* Prevents horizontal wiggle */
   width: 100%;
   position: relative;
+  -webkit-text-size-adjust: 100%;
+  /* Fixes font scaling on iOS orientation change */
 }
 
 h1,
