@@ -1,24 +1,45 @@
-:root {
-  --color-burgundy: #6B0F1A;
-  --color-ochre: #D4A373;
-  --color-cream: #FFFBF2;
-  --color-text-dark: #2D2D2D;
-  --color-text-muted: #6B6B6B;
-  --color-cta-start: #FF4E50;
-  --color-cta-end: #F9D423;
-  /* A bit warmer gradient */
-  --color-cta-disabled: #f8c291;
-
-  --font-serif: "Playfair Display", serif;
-  --font-sans: "Montserrat", sans-serif;
-
-  --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+/* =========================================
+   FONTS
+   ========================================= */
+@font-face {
+  font-family: 'ED-Drayton';
+  src: url('/Assets/Fonts/ED-Drayton-Regular.otf') format('opentype');
+  font-display: swap;
 }
 
-* {
-  box-sizing: border-box;
+@font-face {
+  font-family: 'Avenir';
+  src: url('/Assets/Fonts/Avenir.ttc') format('truetype');
+  font-display: swap;
+}
+
+/* =========================================
+   ROOT VARIABLES
+   ========================================= */
+:root {
+  --color-cream: #F5F0E8;
+  --color-olive: #5B6344;
+  --color-olive-dark: #3E4A2B;
+  --color-white: #FFFFFF;
+  --color-text-dark: #2c2c2c;
+  --font-script: 'ED-Drayton', 'Great Vibes', cursive;
+  --font-sans: 'Avenir', 'Georgia', sans-serif;
+  --transition: all 0.3s ease;
+}
+
+/* =========================================
+   RESET & BASE
+   ========================================= */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -26,125 +47,1746 @@ body {
   background-color: var(--color-cream);
   color: var(--color-text-dark);
   line-height: 1.6;
-  min-height: 100vh;
   overflow-x: hidden;
 }
 
-#app {
+h1,
+h2,
+h3,
+h4 {
+  font-weight: normal;
+}
+
+.script-text {
+  font-family: var(--font-script);
+}
+
+/* =========================================
+   UTILITY: Button
+   ========================================= */
+.btn {
+  display: inline-block;
+  padding: 14px 36px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  transition: var(--transition);
+  cursor: pointer;
+  border: 1.5px solid transparent;
+}
+
+.btn-olive {
+  background-color: var(--color-olive);
+  color: var(--color-white);
+  border-color: var(--color-olive);
+}
+
+.btn-olive:hover {
+  background-color: var(--color-olive-dark);
+  border-color: var(--color-olive-dark);
+}
+
+.btn-outline-white {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  color: var(--color-white);
+  padding: 12px 32px;
+  border-radius: 50px;
+}
+
+.btn-outline-white:hover {
+  background: var(--color-white);
+  color: var(--color-olive-dark);
+}
+
+/* =========================================
+   UTILITY: Section layout
+   ========================================= */
+section {
   position: relative;
-  min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4rem 2rem;
+}
+
+.content-wrapper {
+  position: relative;
   z-index: 1;
-}
-
-#app::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/elvalle.jpg');
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* =========================================
+   UTILITY: Paper texture overlay
+   ========================================= */
+.paper-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('/Assets/papel.png');
   background-size: cover;
-  background-position: center;
-  opacity: 1;
-  /* Opacity for the whole pseudo-element */
-  z-index: -1;
+  background-repeat: no-repeat;
+  opacity: 0.08;
   pointer-events: none;
+  z-index: 0;
 }
 
-header {
+/* =========================================
+   HERO SECTION
+   ========================================= */
+#hero {
+  height: 100vh;
+  min-height: 650px;
+  background-image: url('/Assets/Asset 32@4x.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: var(--color-white);
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Dark overlay – same tonal darkness as screenshot */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 15, 10, 0.42);
+  z-index: 0;
+}
+
+#hero .content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  margin-bottom: 4rem;
+  gap: 0;
+  justify-content: center;
 }
 
-h1 {
-  font-family: var(--font-serif);
-  font-size: clamp(3rem, 10vw, 5rem);
-  color: #FFFFFF;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  margin-bottom: 1rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+/* Horseshoe logo – in flex flow, sits above names with generous gap */
+.hero-logo {
+  width: 120px;
+  height: auto;
+  margin-bottom: 70px;
+  filter: brightness(0) invert(1);
+  z-index: 2;
 }
 
-.subheading {
+/* Script names – single line, elegant */
+.hero-names {
+  font-family: var(--font-script);
+  font-size: clamp(2.8rem, 5.5vw, 6rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+  margin-bottom: 18px;
+  white-space: nowrap;
+}
+
+/* Surname line – two columns, spaced apart, all-caps Avenir */
+.hero-surnames {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 1rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 100px;
+}
+
+/* Date – script font matching the reference design */
+.hero-date {
+  font-family: var(--font-script);
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: normal;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================================
+   INTRO SECTION (¡Nos Casamos!)
+   ========================================= */
+#intro {
+  background-color: var(--color-cream);
+  padding: 100px 0;
+  overflow: hidden;
+}
+
+#intro .content-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  flex-wrap: wrap;
+}
+
+/* Polaroid couple photo with decorative frame and tapes */
+.intro-image-container {
+  flex: 1;
+  min-width: 320px;
+  max-width: 480px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.photo-frame-outline {
+  position: absolute;
+  width: 95%;
+  height: 95%;
+  border: 1.5px solid #F0E6D2;
+  /* Subtle warm border */
+  z-index: 0;
+  transform: translate(15px, 15px);
+}
+
+.polaroid {
+  position: relative;
+  background: transparent;
+  padding: 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transform: rotate(-1.2deg);
+  z-index: 1;
+  width: 100%;
+}
+
+.polaroid img:not(.tape) {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.tape {
+  position: absolute;
+  width: 100px;
+  height: auto;
+  z-index: 2;
+  opacity: 0.85;
+}
+
+.tape-tl {
+  top: -30px;
+  left: -15px;
+  width: 110px;
+  transform: rotate(-10deg);
+}
+
+.tape-br {
+  bottom: -15px;
+  right: -15px;
+  transform: rotate(-10deg);
+}
+
+/* Right side text */
+.intro-text-container {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+  text-align: center;
+}
+
+.intro-logo {
+  width: 80px;
+  margin-bottom: 24px;
+  filter: sepia(1) saturate(0.5) hue-rotate(40deg) brightness(0.7);
+  /* Adjustment for olive-ish logo */
+}
+
+.intro-title {
+  font-family: var(--font-sans);
+  font-size: 3rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-olive-dark);
+  margin-bottom: 4px;
+}
+
+.intro-subtitle {
+  font-family: var(--font-script);
+  font-size: 2.4rem;
+  color: var(--color-olive);
+  margin-bottom: 36px;
+  line-height: 1;
+}
+
+.intro-body {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.7;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.intro-highlight {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-olive-dark);
+  margin-bottom: 36px;
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Floating floral decorations */
+.deco-flower {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  /* Lowered from 2 to stay behind content */
+}
+
+#intro .deco-flower.left {
+  bottom: -60px;
+  left: -60px;
+  width: 500px;
+  /* Even larger for impact */
+}
+
+#intro .deco-flower.right {
+  top: -60px;
+  right: -60px;
+  width: 450px;
+}
+
+/* =========================================
+   ITINERARY SECTION
+   ========================================= */
+#itinerary {
+  background-color: var(--color-olive);
+  padding: 44px 20px;
+  color: var(--color-white);
+}
+
+.itinerary-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  /* More space between items as in screenshot */
+  flex-wrap: wrap;
+}
+
+.itinerary-title {
+  font-family: var(--font-script);
+  font-size: 4.2rem;
+  color: var(--color-white);
+  margin-right: 20px;
+}
+
+.itinerary-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.itinerary-icon {
+  width: 65px;
+  /* Slightly larger icons */
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+
+.itinerary-info h3 {
   font-family: var(--font-sans);
   font-size: 1.1rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #FFFFFF;
-  font-weight: 400;
-  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: var(--color-white);
 }
 
-main {
+.itinerary-info p {
+  font-family: 'Georgia', serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--color-white);
+  line-height: 1;
+  letter-spacing: 0.05em;
+}
+
+/* =========================================
+   CEREMONY SECTION
+   ========================================= */
+#ceremony {
+  background-color: var(--color-olive-dark);
+  color: var(--color-white);
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.ceremony-deco {
+  position: absolute;
+  width: 400px;
+  /* Larger swirls */
+  pointer-events: none;
+  z-index: 0;
+}
+
+.deco-tr {
+  top: -80px;
+  right: -50px;
+  opacity: 0.25;
+}
+
+.deco-bl {
+  bottom: -50px;
+  left: -80px;
+  opacity: 0.25;
+}
+
+.section-title-white {
+  font-family: var(--font-script);
+  font-size: 4rem;
+  color: var(--color-white);
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.ceremony-flex {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.ceremony-text {
+  flex: 1;
+  min-width: 280px;
+  max-width: 440px;
+}
+
+.ceremony-text p {
+  font-size: 1.05rem;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.ceremony-divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  width: 45px;
+  margin: 24px 0 20px 0;
+}
+
+.ceremony-details p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-white);
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.ceremony-image {
+  flex: 1.2;
+  min-width: 320px;
+  max-width: 580px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.main-ceremony-img {
   width: 100%;
-  max-width: 800px;
+  height: auto;
+  display: block;
+}
+
+.ceremony-footer {
+  text-align: center;
+  margin-top: 140px;
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.01em;
+  width: 100%;
+}
+
+.btn-pill-transp {
+  display: inline-block;
+  background-color: rgba(144, 153, 126, 0.55);
+  color: white;
+  padding: 10px 32px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  margin-top: 24px;
+}
+
+.btn-pill-transp:hover {
+  background-color: rgba(144, 153, 126, 0.8);
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   RECEPTION SECTION
+   ========================================= */
+#reception {
+  background-color: var(--color-cream);
+  padding: 100px 0;
+  overflow: hidden;
+}
+
+.section-title-olive {
+  font-family: var(--font-script);
+  font-size: 5rem;
+  color: var(--color-olive-dark);
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.reception-flex {
+  display: flex;
+  align-items: flex-start;
+  gap: 70px;
+  flex-wrap: wrap;
+}
+
+.reception-map {
+  flex: 1.2;
+  min-width: 280px;
+}
+
+.reception-map img {
+  width: 100%;
+  height: auto;
+}
+
+.reception-text {
+  flex: 1;
+  min-width: 280px;
+}
+
+.venue-name {
+  font-family: var(--font-sans);
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-olive-dark);
+  margin-bottom: 24px;
+}
+
+.venue-name-accent {
+  font-size: 0.7rem;
+  word-spacing: -1px;
+  color: #999;
+}
+
+.reception-text p {
+  font-size: 1.15rem;
+  color: #555;
+  margin-bottom: 18px;
+  line-height: 1.7;
+}
+
+.reception-footer {
+  text-align: center;
+  margin-top: 60px;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--color-olive);
+  line-height: 1.9;
+}
+
+#reception .deco-flower.left {
+  bottom: -60px;
+  left: -40px;
+  width: 340px;
+  opacity: 0.95;
+}
+
+#reception .deco-flower.right {
+  bottom: -40px;
+  right: -40px;
+  width: 260px;
+  opacity: 0.95;
+}
+
+/* =========================================
+   HOSPEDAJE SECTION
+   ========================================= */
+#hospedaje {
+  background: url('/Assets/Asset 14@4x.png'), #7a8364;
+  background-size: cover;
+  background-position: center;
+  padding: 90px 0 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+#hospedaje .section-title-olive {
+  color: var(--color-white);
+  font-size: 6rem;
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+/* Floral decorations specific to hospedaje */
+.hospedaje-left-top {
+  top: -20px;
+  left: -40px;
+  width: 280px;
+  opacity: 0.95;
+}
+
+.hospedaje-left-bottom {
+  top: 180px;
+  left: -20px;
+  width: 240px;
+  opacity: 0.4;
+  /* Reduced opacity to be less distracting when behind */
+}
+
+.hospedaje-right {
+  bottom: -60px;
+  right: -40px;
+  width: 350px;
+  opacity: 0.5;
+  /* Reduced opacity */
+}
+
+/* Three-column grid of hotel cards */
+.hospedaje-grid {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+
+/* Individual hotel card */
+.hotel-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4rem;
+  gap: 20px;
 }
 
-.couple-portrait-container {
-  width: 100%;
-  max-width: 500px;
-  aspect-ratio: 4 / 5;
-  padding: 1.5rem;
-  background: white;
-  box-shadow: 0 20px 50px rgba(107, 15, 26, 0.08);
-  border-radius: 4px;
-}
-
-.couple-portrait {
-  width: 100%;
-  height: 100%;
+/* Circular photo frame */
+.hotel-circle {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
   overflow: hidden;
-  position: relative;
+  border: 4px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+  flex-shrink: 0;
 }
 
-.couple-portrait img {
+.hotel-circle img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: var(--transition-smooth);
+  object-position: center;
+  display: block;
+  transition: transform 0.5s ease;
 }
 
-/* Animations */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 1.2s forwards ease-out;
+.hotel-card:hover .hotel-circle img {
+  transform: scale(1.06);
 }
 
-.fake-in-delayed {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 1.2s forwards 0.4s ease-out;
+/* Hotel name label */
+.hotel-name {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-white);
+  line-height: 1.6;
 }
 
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+/* Footer italic note */
+.hospedaje-footer {
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.85;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* =========================================
+   DRESSCODE SECTION
+   ========================================= */
+#dresscode {
+  background-color: #f7f3e8;
+  /* Warm paper base */
+  padding: 100px 0 120px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+#dresscode .content-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.dresscode-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dresscode-titles {
+  margin-bottom: 40px;
+}
+
+.dresscode-script {
+  font-size: clamp(4.5rem, 8vw, 6.5rem);
+  color: var(--color-olive);
+  font-weight: normal;
+  line-height: 0.8;
+  margin-top: 10px;
+  margin-bottom: -15px;
+  display: block;
+}
+
+.dresscode-main {
+  font-family: serif;
+  /* fallback to serif for the distinct look */
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  color: var(--color-olive);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.dresscode-tagline {
+  font-family: var(--font-sans);
+  font-size: 1.6rem;
+  color: var(--color-olive);
+  line-height: 1.6;
+  margin-bottom: 40px;
+  max-width: 700px;
+}
+
+.color-palette {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+.color-dot {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.dresscode-tip {
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  color: var(--color-olive);
+  margin-bottom: 40px;
+  letter-spacing: 0.02em;
+}
+
+.dresscode-tip strong {
+  font-weight: 900;
+}
+
+.rounded-full {
+  border-radius: 50px !important;
+  padding: 14px 48px !important;
+  font-size: 0.88rem !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Floral decor for Dresscode */
+.dresscode-top-right {
+  position: absolute;
+  top: -40px;
+  right: -50px;
+  width: 380px;
+  opacity: 0.95;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.dresscode-bottom-left {
+  position: absolute;
+  bottom: -40px;
+  left: -50px;
+  width: 320px;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 10;
+}
+
+
+
+/* =========================================
+   SOLO ADULTOS SECTION
+   ========================================= */
+#adultos {
+  background-color: #5e6144;
+  /* Dark olive green */
+  padding: 120px 0;
+  text-align: center;
+}
+
+.adultos-card {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.adultos-paper {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.adultos-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  /* Increased width slightly for larger paper */
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  /* Increased gap */
+}
+
+.adultos-title {
+  font-size: clamp(4rem, 9vw, 8rem);
+  /* Increased size */
+  color: #5e6144;
+  margin: 0;
+  line-height: 1;
+}
+
+.adultos-paragraphs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* Reduced gap slightly */
+}
+
+.adultos-paragraphs p {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  /* Increased font size */
+  color: #5e6144;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .adultos-content {
+    width: 75%;
   }
 }
 
 @media (max-width: 600px) {
-  #app {
-    padding: 2rem 1rem;
+  #adultos {
+    padding: 60px 15px;
+    /* Added side padding to give space around the paper */
   }
 
-  .interactive-frames {
-    gap: 1.5rem;
+  .adultos-content {
+    top: 52%;
+    /* Pushed down slightly to clear the top edge */
+    width: 68%;
+    /* Narrower width for maximum safety margin */
+    gap: 8px;
   }
 
-  .frame-circle {
+  .adultos-title {
+    font-size: 1.8rem;
+    /* Smaller to ensure it fits at the top */
+    margin-bottom: 0;
+  }
+
+  .adultos-paragraphs {
+    gap: 5px;
+  }
+
+  .adultos-paragraphs p {
+    font-size: 0.75rem;
+    /* Smaller text to fit height-wise */
+    line-height: 1.3;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-surnames {
+    gap: 40px;
+  }
+
+  #intro .content-wrapper {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .intro-image-container {
+    max-width: 340px;
+  }
+
+  .ceremony-flex,
+  .reception-flex {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ceremony-text,
+  .reception-text {
+    text-align: center;
+  }
+
+  .ceremony-divider {
+    margin: 0 auto 20px auto;
+  }
+
+  .itinerary-grid {
+    gap: 46px;
+  }
+
+  .hospedaje-grid {
+    gap: 40px;
+  }
+
+  .hotel-circle {
+    width: 180px;
+    height: 180px;
+  }
+
+  /* Responsive fixes for floral decorations */
+  #intro .deco-flower.left {
+    width: 280px;
+    left: -40px;
+    bottom: -40px;
+  }
+
+  #intro .deco-flower.right {
+    width: 240px;
+    right: -40px;
+    top: -40px;
+  }
+
+  .ceremony-deco {
+    width: 200px;
+  }
+
+  .hospedaje-left-top {
+    width: 150px;
+  }
+
+  .hospedaje-left-bottom {
     width: 140px;
-    height: 140px;
+  }
+
+  .hospedaje-right {
+    width: 180px;
+  }
+
+  #reception .deco-flower.left {
+    width: 220px;
+    left: -30px;
+    bottom: -30px;
+    opacity: 0.6;
+  }
+
+  #reception .deco-flower.right {
+    width: 160px;
+    right: -30px;
+    bottom: -20px;
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 540px) {
+  .hero-names {
+    font-size: 2.6rem;
+  }
+
+  .hero-surnames {
+    flex-direction: column;
+    gap: 6px;
+    letter-spacing: 0.18em;
+  }
+
+  .hero-date {
+    font-size: 1.3rem;
+  }
+
+  .section-title-white,
+  .section-title-olive {
+    font-size: 2.8rem;
+  }
+
+  .venue-name {
+    justify-content: center;
+  }
+
+  .hospedaje-grid {
+    gap: 28px;
+  }
+
+  .hotel-circle {
+    width: 150px;
+    height: 150px;
+  }
+
+  #hospedaje .section-title-olive {
+    font-size: 2.8rem;
+  }
+
+  /* Dresscode overrides */
+  .dresscode-script {
+    font-size: 4rem;
+    margin-bottom: -10px;
+  }
+
+  .dresscode-main {
+    font-size: 2.2rem;
+    letter-spacing: 0.08em;
+    white-space: normal;
+    /* allow wrap on small mobile if needed */
+  }
+
+  .dresscode-tagline {
+    font-size: 1.05rem;
+    padding: 0 20px;
+  }
+
+  .dresscode-top-right {
+    width: 220px;
+    top: -20px;
+    right: -30px;
+  }
+
+  .dresscode-bottom-left {
+    width: 180px;
+    bottom: -20px;
+    left: -30px;
+  }
+}
+
+/* =========================================
+   COUNTDOWN & RSVP SECTION
+   ========================================= */
+#countdown-section {
+  position: relative;
+  padding: 120px 0;
+  background-color: #fdfaf5;
+  overflow: hidden;
+  text-align: center;
+}
+
+.countdown-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  position: relative;
+  z-index: 5;
+}
+
+/* Floral positioning for countdown */
+.floral-countdown {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floral-top-left {
+  top: -20px;
+  left: -20px;
+  width: 320px;
+}
+
+.floral-top-right {
+  top: 0px;
+  right: -30px;
+  width: 280px;
+  transform: rotate(15deg);
+}
+
+.floral-bottom-left {
+  bottom: 0px;
+  left: -30px;
+  width: 280px;
+  transform: rotate(-15deg);
+}
+
+.floral-bottom-right {
+  bottom: -20px;
+  right: -20px;
+  width: 380px;
+}
+
+.countdown-logo {
+  width: 200px;
+  margin-bottom: -10px;
+}
+
+.countdown-main-text {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 2.2rem;
+  line-height: 1.4;
+  color: #5e6144;
+  letter-spacing: 0.15em;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.countdown-timer-pill {
+  background-color: #7b816a;
+  /* Distinct olive for the pill */
+  color: white;
+  padding: 35px 90px;
+  border-radius: 100px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 4rem;
+  letter-spacing: 0.05em;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  min-width: 600px;
+}
+
+.rsvp-outline-btn {
+  display: inline-block;
+  padding: 12px 60px;
+  border: 1px solid #5e6144;
+  border-radius: 60px;
+  color: #5e6144;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  text-decoration: none;
+  transition: var(--transition);
+  margin-top: 30px;
+  letter-spacing: 0.05em;
+}
+
+.rsvp-outline-btn:hover {
+  background-color: var(--color-olive);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Response for countdown section */
+@media (max-width: 900px) {
+  #countdown-section {
+    padding: 100px 20px;
+  }
+
+  .countdown-main-text {
+    font-size: 1.4rem;
+    line-height: 1.5;
+  }
+
+  .countdown-timer-pill {
+    font-size: 2.8rem;
+    padding: 25px 60px;
+    min-width: unset;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .countdown-logo {
+    width: 150px;
+  }
+
+  .floral-top-left {
+    width: 250px;
+  }
+
+  .floral-top-right {
+    width: 180px;
+  }
+
+  .floral-bottom-left {
+    width: 180px;
+  }
+
+  .floral-bottom-right {
+    width: 200px;
+  }
+}
+
+/* =========================================
+   MÚSICA - SPOTIFY SECTION
+   ========================================= */
+#musica {
+  position: relative;
+  padding: 140px 0;
+  background-color: #7b816a;
+  /* Olive green matching reference */
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}
+
+.musica-title {
+  font-family: var(--font-script);
+  font-size: clamp(4rem, 10vw, 8rem);
+  color: white;
+  margin-bottom: 60px;
+  line-height: 1.2;
+}
+
+.spotify-embed-container {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  background: #000;
+  /* Matching Spotify black */
+}
+
+.musica-description {
+  margin-top: 80px;
+  font-family: var(--font-sans);
+  font-size: 1.4rem;
+  line-height: 1.8;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  text-align: center;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+}
+
+/* Leaf Shadow Effect - Matching ref photo */
+.leaf-shadow-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background-image: url('/Assets/Asset 15@4x.png');
+  background-size: contain;
+  background-position: top right;
+  background-repeat: no-repeat;
+  opacity: 0.2;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Musical Notes Decor */
+.musical-notes-decor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.musical-notes-decor svg {
+  position: absolute;
+  opacity: 0.4;
+  color: white;
+}
+
+.note-1 {
+  top: 25%;
+  left: 10%;
+  transform: rotate(-10deg);
+  opacity: 0.5;
+}
+
+.note-2 {
+  top: 45%;
+  left: 7%;
+  transform: rotate(15deg);
+  opacity: 0.4;
+}
+
+.note-3 {
+  bottom: 20%;
+  left: 15%;
+  transform: rotate(-10deg);
+  opacity: 0.3;
+}
+
+@media (max-width: 900px) {
+  #musica {
+    padding: 100px 20px;
+  }
+
+  .musica-title {
+    font-size: 5rem;
+  }
+
+  .spotify-embed-container {
+    max-width: 100%;
+  }
+
+  .musica-description {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 600px) {
+  #musica {
+    padding: 80px 15px;
+  }
+
+  .musica-title {
+    font-size: 3.5rem;
+    margin-bottom: 40px;
+  }
+
+  .musica-description {
+    font-size: 1rem;
+    margin-top: 40px;
+  }
+
+  .leaf-shadow-overlay {
+    width: 80%;
+    opacity: 0.15;
+  }
+
+  .countdown-timer-pill {
+    font-size: 1.8rem;
+    padding: 15px 30px;
+    gap: 10px;
+  }
+
+  .rsvp-outline-btn {
+    padding: 12px 40px;
+    font-size: 1rem;
+  }
+}
+
+/* =========================================
+   OBSEQUIOS SECTION
+   ========================================= */
+#obsequios {
+  background-color: var(--color-cream);
+  padding: 100px 0;
+  text-align: center;
+}
+
+.obsequios-title {
+  font-size: clamp(4rem, 8vw, 6rem);
+  margin-bottom: 20px;
+}
+
+.obsequios-intro {
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: #5e6144;
+  line-height: 1.6;
+  max-width: 900px;
+  margin: 0 auto 60px;
+  letter-spacing: 0.02em;
+}
+
+.obsequios-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.obsequios-card {
+  background-color: #5e6144;
+  color: white;
+  padding: 50px 40px;
+  border-radius: 60px;
+  flex: 1;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 280px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.card-content h3 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 15px;
+  line-height: 1.3;
+}
+
+.card-content p {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+  opacity: 0.95;
+}
+
+.account-number {
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-top: 10px !important;
+}
+
+/* Yappy Specific */
+.yappy-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.yappy-text {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 2.2rem;
+  margin-top: -10px;
+}
+
+.yappy-number {
+  font-size: 2rem !important;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* Decorations */
+.obsequios-deco {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.deco-tl {
+  top: -10px;
+  left: -20px;
+  width: 380px;
+  transform: rotate(20deg);
+}
+
+.deco-br {
+  bottom: -20px;
+  right: -30px;
+  width: 420px;
+  transform: rotate(-10deg);
+}
+
+@media (max-width: 900px) {
+  .obsequios-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .obsequios-card {
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 600px) {
+  #obsequios {
+    padding: 80px 15px;
+  }
+
+  .obsequios-intro {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+
+  .obsequios-intro br {
+    display: none;
+  }
+
+  .obsequios-card {
+    padding: 40px 30px;
+    border-radius: 40px;
+  }
+
+  .yappy-text {
+    font-size: 1.8rem;
+  }
+
+  .yappy-number {
+    font-size: 1.6rem !important;
+  }
+}
+
+.musica-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  padding: 15px 40px;
+  border: 1.2px solid white;
+  border-radius: 50px;
+  color: white;
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: var(--transition);
+  background: rgba(255, 255, 255, 0.1);
+  margin-top: 20px;
+}
+
+.musica-btn-outline:hover {
+  background-color: white;
+  color: #7b816a;
+  transform: translateY(-2px);
+}
+
+.musica-btn-outline svg {
+  transition: fill 0.3s ease;
+}
+
+.musica-btn-outline:hover svg {
+  fill: #7b816a;
+}
+
+/* =========================================
+   FINAL QUOTE SECTION
+   ========================================= */
+#final-quote {
+  position: relative;
+  min-height: 95vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+}
+
+.quote-bg-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.quote-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.quote-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.quote-rings-container {
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.quote-rings-icon {
+  width: 110px;
+  filter: brightness(0) invert(1);
+}
+
+.quote-text-container {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.quote-italic {
+  font-family: "Georgia", serif;
+  font-style: italic;
+  font-size: 2.1rem;
+  line-height: 1.5;
+  color: white;
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+.quote-spacer {
+  height: 50px;
+}
+
+.quote-signature-container {
+  margin-top: 40px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.quote-signature-box {
+  display: inline-block;
+  padding: 0;
+  border-radius: 0;
+  background-color: transparent !important;
+}
+
+.quote-signature-img {
+  width: 100%;
+  max-width: 550px;
+  /* Increased from 320px */
+  height: auto;
+  display: block;
+}
+
+.quote-deco {
+  position: absolute;
+  z-index: 0;
+  /* Changed from 5 to 0 to be behind */
+  pointer-events: none;
+}
+
+.quote-deco.deco-tr {
+  top: -10px;
+  right: -10px;
+  width: 380px;
+}
+
+.quote-deco.deco-bl {
+  bottom: -40px;
+  left: -20px;
+  width: 420px;
+}
+
+@media (max-width: 900px) {
+  #final-quote {
+    min-height: 70vh;
+    padding: 80px 20px;
+  }
+
+  .quote-italic {
+    font-size: 1.6rem;
+  }
+
+  .quote-signature-img {
+    max-width: 350px;
+    /* Increased from 240px */
+  }
+
+  .quote-rings-icon {
+    width: 90px;
+  }
+
+  .quote-deco.deco-tr {
+    width: 200px;
+  }
+
+  .quote-deco.deco-bl {
+    width: 250px;
+  }
+}
+
+/* =========================================
+   MUSIC PLAYER FLOATING BUTTON
+   ========================================= */
+.music-fab {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 50px;
+  height: 50px;
+  background: rgba(91, 99, 68, 0.9);
+  /* Olive Sage exact */
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.music-fab:hover {
+  transform: scale(1.1);
+  background-color: rgba(91, 99, 68, 1);
+}
+
+.music-fab.playing {
+  animation: pulse-music 2s infinite;
+}
+
+.music-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+@keyframes pulse-music {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(91, 99, 68, 0.7);
+  }
+
+  70% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 10px rgba(91, 99, 68, 0);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(91, 99, 68, 0);
+  }
+}
+
+@media (max-width: 600px) {
+  .music-fab {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
   }
 }
