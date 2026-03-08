@@ -40,10 +40,7 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
-  width: 100%;
-  height: 100%;
-  /* Changed to ensure scroll works with overflow-x hidden */
+  /* Removed height/overflow to fix vertical scroll lock */
 }
 
 body {
@@ -52,6 +49,7 @@ body {
   color: var(--color-text-dark);
   line-height: 1.6;
   overflow-x: hidden;
+  /* Strict horizontal lock */
   width: 100%;
   position: relative;
   -webkit-text-size-adjust: 100%;
@@ -1074,18 +1072,18 @@ section {
   }
 
   .hero-names {
-    font-size: 2rem;
-    line-height: 1.2;
-    margin-bottom: 30px;
+    font-size: 3.2rem;
+    /* Increased as requested */
+    line-height: 1.1;
+    margin-bottom: 25px;
   }
 
   .hero-surnames {
     flex-direction: column;
     gap: 8px;
     letter-spacing: 0.15em;
-    font-size: 0.85rem;
-    margin-bottom: 60px;
-    /* Reduced from 100px */
+    font-size: 0.9rem;
+    margin-bottom: 50px;
   }
 
   .hero-date {
@@ -1773,14 +1771,24 @@ section {
 /* =========================================
    MUSIC PLAYER FLOATING BUTTON
    ========================================= */
-.music-fab {
+.music-controls-container {
   position: fixed;
   bottom: 25px;
-  right: 25px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  /* Default for desktop */
+  padding-right: 25px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.music-fab {
+  pointer-events: auto;
   width: 50px;
   height: 50px;
   background: rgba(91, 99, 68, 0.9);
-  /* Olive Sage exact */
   color: #fff;
   border: none;
   border-radius: 50%;
@@ -1788,14 +1796,12 @@ section {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 9999;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .music-fab:hover {
   transform: scale(1.1);
-  background-color: rgba(91, 99, 68, 1);
 }
 
 .music-fab.playing {
@@ -1825,14 +1831,15 @@ section {
 }
 
 @media (max-width: 600px) {
-  .music-fab {
+  .music-controls-container {
+    justify-content: center;
+    padding-right: 0;
     bottom: 20px;
-    right: auto;
-    left: 50%;
-    transform: translateX(-50%);
-    /* Centered on mobile */
-    width: 45px;
-    height: 45px;
+  }
+
+  .music-fab {
+    width: 48px;
+    height: 48px;
   }
 
   .music-icon {
