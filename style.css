@@ -210,11 +210,14 @@ section {
 
 /* Date – script font matching the reference design */
 .hero-date {
-  font-family: var(--font-script);
-  font-size: clamp(2.2rem, 4vw, 3.5rem);
-  font-weight: normal;
-  letter-spacing: 0.02em;
+  font-family: var(--font-sans);
+  /* Changed from script for better legibility */
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* =========================================
@@ -1057,7 +1060,9 @@ section {
   }
 
   .hero-date {
-    font-size: 1.6rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    margin-top: -10px;
   }
 
   .section-title-white,
@@ -1794,7 +1799,11 @@ section {
   .music-fab {
     bottom: 20px;
     right: 20px;
-    width: 45px;
-    height: 45px;
+    width: 42px;
+    height: 42px;
+  }
+
+  .music-icon {
+    font-size: 18px;
   }
 }
