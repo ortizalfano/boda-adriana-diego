@@ -40,7 +40,10 @@
 
 html {
   scroll-behavior: smooth;
-  /* Removed overflow-x: hidden to prevent scroll conflicts on mobile */
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+  /* Changed to ensure scroll works with overflow-x hidden */
 }
 
 body {
@@ -49,11 +52,24 @@ body {
   color: var(--color-text-dark);
   line-height: 1.6;
   overflow-x: hidden;
-  /* Prevents horizontal wiggle */
   width: 100%;
   position: relative;
   -webkit-text-size-adjust: 100%;
-  /* Fixes font scaling on iOS orientation change */
+}
+
+/* Global fix for horizontal scroll */
+* {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Specific elements that are allowed to be absolute must not push width */
+.deco-flower,
+.ceremony-deco,
+.quote-deco,
+.floral-countdown {
+  max-width: none !important;
+  /* Allow images to keep their scale but container will hide overflow */
 }
 
 h1,
@@ -1811,12 +1827,15 @@ section {
 @media (max-width: 600px) {
   .music-fab {
     bottom: 20px;
-    right: 20px;
-    width: 42px;
-    height: 42px;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Centered on mobile */
+    width: 45px;
+    height: 45px;
   }
 
   .music-icon {
-    font-size: 18px;
+    font-size: 20px;
   }
 }
