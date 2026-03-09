@@ -953,24 +953,23 @@ section {
   }
 
   .adultos-content {
-    top: 50%;
-    width: 82%;
-    /* Wider to reduce height of text block */
-    gap: 12px;
+    top: 52%;
+    width: 90%;
+    gap: 10px;
   }
 
   .adultos-title {
-    font-size: 2rem;
-    margin-bottom: 0;
+    font-size: 1.7rem;
+    margin-bottom: -5px;
   }
 
   .adultos-paragraphs {
-    gap: 8px;
+    gap: 4px;
   }
 
   .adultos-paragraphs p {
-    font-size: 0.78rem;
-    line-height: 1.35;
+    font-size: 0.72rem;
+    line-height: 1.25;
   }
 }
 
