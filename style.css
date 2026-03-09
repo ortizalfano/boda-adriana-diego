@@ -954,11 +954,11 @@ section {
   }
 
   .adultos-content {
-    top: 52%;
-    /* Pushed down slightly to clear the top edge */
+    top: 48%;
+    /* Pulled up slightly to avoid touching the bottom edge */
     width: 68%;
     /* Narrower width for maximum safety margin */
-    gap: 8px;
+    gap: 10px;
   }
 
   .adultos-title {
