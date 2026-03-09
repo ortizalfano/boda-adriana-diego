@@ -953,22 +953,22 @@ section {
   }
 
   .adultos-content {
-    top: 52%;
-    width: 90%;
-    gap: 10px;
+    top: 50%;
+    width: 92%;
+    gap: 8px;
   }
 
   .adultos-title {
-    font-size: 1.7rem;
-    margin-bottom: -5px;
+    font-size: 1.5rem;
+    margin-bottom: -8px;
   }
 
   .adultos-paragraphs {
-    gap: 4px;
+    gap: 3px;
   }
 
   .adultos-paragraphs p {
-    font-size: 0.72rem;
+    font-size: 0.65rem;
     line-height: 1.25;
   }
 }
