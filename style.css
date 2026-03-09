@@ -949,32 +949,28 @@ section {
 
 @media (max-width: 600px) {
   #adultos {
-    padding: 60px 15px;
-    /* Added side padding to give space around the paper */
+    padding: 40px 10px;
   }
 
   .adultos-content {
-    top: 48%;
-    /* Pulled up slightly to avoid touching the bottom edge */
-    width: 68%;
-    /* Narrower width for maximum safety margin */
-    gap: 10px;
+    top: 50%;
+    width: 82%;
+    /* Wider to reduce height of text block */
+    gap: 12px;
   }
 
   .adultos-title {
-    font-size: 1.8rem;
-    /* Smaller to ensure it fits at the top */
+    font-size: 2rem;
     margin-bottom: 0;
   }
 
   .adultos-paragraphs {
-    gap: 5px;
+    gap: 8px;
   }
 
   .adultos-paragraphs p {
-    font-size: 0.75rem;
-    /* Smaller text to fit height-wise */
-    line-height: 1.3;
+    font-size: 0.78rem;
+    line-height: 1.35;
   }
 }
 
